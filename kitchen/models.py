@@ -18,6 +18,9 @@ class Dish(models.Model):
     description = models.TextField(blank=True)
     price = models.IntegerField()
     dish_type = models.ForeignKey(
-        DishType, on_delete=models.SET_NULL, related_name="dishes"
+        DishType,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name="dishes"
     )
     cooks = models.ManyToManyField(Cook, related_name="dishes")
