@@ -8,7 +8,20 @@
   {% include "includes/config/head-links.html" %}
 </head>
 <body>
-  {% include "includes/navbar.html" %}
+  <header>
+    {% include "includes/navbar.html" %}
+    <div class="container text-center mt-4 mb-4">
+      <div class ="row d-flex align-items-end">
+      {% block header %}
+      {% endblock %}
+      </div>
+    </div>
+  </header>
+  <main class="container text-center">
+    {% block main %}
+    {% endblock %}
+  </main>
+  {% include "includes/footer.html" %}
   {% include "includes/config/js-scripts.html" %}
 </body>
 </html>

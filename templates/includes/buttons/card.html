@@ -1,0 +1,12 @@
+<div class="col">
+  <div class="card text-center">
+    <a href="{% url "kitchen:index" %}">
+      <img class="card-img-top" width="100%" height="230">
+      <div class="card-body">
+        <h3 class="card-title">Title</h3>
+      </div>
+    </a>
+    {% include "includes/buttons/delete_button.html" %}
+    {% include "includes/buttons/edit_button.html" %}
+  </div>
+</div>
