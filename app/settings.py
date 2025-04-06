@@ -32,18 +32,19 @@ AUTH_USER_MODEL = "kitchen.Cook"
 # Application definition
 
 INSTALLED_APPS = [
+    "kitchen",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "kitchen",
-    "theme_soft_design"
+    "debug_toolbar"
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -71,6 +72,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "app.wsgi.application"
 
+MEDIA_ROOT = ""
+MEDIA_URL = ""
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -126,3 +129,5 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+INTERNAL_IPS = ["127.0.0.1"]
