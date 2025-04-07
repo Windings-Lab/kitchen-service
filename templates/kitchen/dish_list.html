@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "includes/header/search_title_create.html" with url_page=create_dish_url %}
+{% endblock %}
+{% block main %}
+  <div class="row row-cols-3 gy-4">
+    {% include "includes/buttons/card.html" %}
+    {% include "includes/buttons/card.html" %}
+    {% include "includes/buttons/card.html" %}
+    {% include "includes/buttons/card.html" %}
+    {% include "includes/buttons/card.html" %}
+    {% include "includes/buttons/card.html" %}
+  </div>
+{% endblock %}

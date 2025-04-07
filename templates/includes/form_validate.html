@@ -1,0 +1,3 @@
+{% if request.method == "POST" %}
+  {% if validator %} is-invalid {% else %} is-valid {% endif %}
+{% endif %}
