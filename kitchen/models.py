@@ -18,6 +18,18 @@ class DishType(models.Model):
         return self.name
 
 
+class Ingredient(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    image = models.ImageField(
+        upload_to="ingredient/",
+        null=True,
+        blank=True,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Dish(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
@@ -33,4 +45,11 @@ class Dish(models.Model):
         on_delete=models.SET_NULL,
         related_name="dishes"
     )
-    cooks = models.ManyToManyField(Cook, related_name="dishes")
+    ingredients = models.ManyToManyField(
+        Ingredient,
+        related_name="dishes",
+    )
+    cooks = models.ManyToManyField(
+        Cook,
+        related_name="dishes"
+    )
