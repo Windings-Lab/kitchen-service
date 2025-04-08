@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from kitchen.models import Dish, DishType
+from kitchen.models import Dish, DishType, Ingredient
 
 
 def index(request):
@@ -56,3 +56,18 @@ class DishCreateView(generic.CreateView):
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-list")
 
+
+class IngredientListView(generic.ListView):
+    model = Ingredient
+    template_name = "kitchen/default_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(IngredientListView, self).get_context_data(**kwargs)
+        context["create_url_page"] = reverse("kitchen:ingredient-create")
+        return context
+
+
+class IngredientCreateView(generic.CreateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient-list")
