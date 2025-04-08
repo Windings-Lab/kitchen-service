@@ -8,25 +8,34 @@
   {% endwith %}
 {% endblock %}
 {% block main %}
-  <form action="" method="post" enctype="multipart/form-data" class="text-start" novalidate>
+  <form action="" method="post" enctype="multipart/form-data" class="d-flex justify-content-center" novalidate>
     {% csrf_token %}
-    <div class="card text-center">
-    <label for="image" class="btn btn-secondary">Set image</label>
-    <input type="file" class="form-control visually-hidden" id="image">
-    <label for="image">
-      <img class="card-img-top" width="100%" height="230">
-    </label>
-    <div class="card-body">
-      <label for="name" class="visually-hidden form-label">Name</label>
-      <input type="text"
-             class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
-             id="name" name="name" placeholder="Write a name..." required>
-      <div class="invalid-feedback">
-        {% for error in form.name.errors %}
-          {{ error }}
-        {% endfor %}
+    <div class="row row-cols-1">
+      <div class="card col w-100 mb-3">
+        <label for="image" class="btn btn-secondary">Set image</label>
+
+        <input type="file" class="form-control visually-hidden" id="image">
+
+        <label for="image">
+          <img class="card-img-top" width="100%" height="230">
+        </label>
+
+        <div class="card-body">
+
+          <label for="name" class="visually-hidden form-label">Name</label>
+          <input type="text"
+                 class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
+                 id="name" name="name" placeholder="Write a name..." required>
+          <div class="invalid-feedback">
+            {% for error in form.name.errors %}
+              {{ error }}
+            {% endfor %}
+          </div>
+
+        </div>
+
       </div>
+      <input type="submit" value="Submit" class="btn btn-primary col">
     </div>
-  </div>
   </form>
 {% endblock %}
