@@ -12,42 +12,23 @@
     {% csrf_token %}
     <div class="row">
       <div class="col-3">
-        <div class="card text-center">
-          <label for="image" class="btn btn-secondary">Set image</label>
-          <input type="file" class="form-control visually-hidden" id="image">
-          <label for="image">
-            <img class="card-img-top" width="100%" height="230">
-          </label>
-          <div class="card-body">
-            <label for="name" class="visually-hidden form-label">Name</label>
+        {% include "includes/cards/image_name_input.html" %}
+      </div>
+      <div class="col-9 d-flex flex-column">
+        <div class="col d-flex flex-column mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control d-flex flex-grow-1" id="description"></textarea>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <label for="price" class="form-label visually-hidden">Price</label>
             <input type="text"
-                   class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
-                   id="name" name="name" placeholder="Write a name..." required>
+                   class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
+                   id="price" name="price" placeholder="Price..." required>
             <div class="invalid-feedback">
-              {% for error in form.name.errors %}
+              {% for error in form.price.errors %}
                 {{ error }}
               {% endfor %}
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-9 mb-3">
-        <div class="row">
-          <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" rows="10"></textarea>
-          </div>
-          <div class="col">
-            <div class="">
-              <label for="price" class="form-label visually-hidden">Price</label>
-              <input type="text"
-                     class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
-                     id="price" name="price" placeholder="Price..." required>
-              <div class="invalid-feedback">
-                {% for error in form.price.errors %}
-                  {{ error }}
-                {% endfor %}
-              </div>
             </div>
           </div>
           <div class="col">
@@ -67,67 +48,17 @@
           </div>
         </div>
       </div>
-      <div class="row mb-3">
-        <div class="col w-100 h-100">
-          <fieldset>
-            <legend>Cooks:</legend>
-            <div id="id_cooks" class="border border-secondary p-3">
-              <div class="row g-3">
-                {% for cook in form.cooks.field.queryset %}
-                  <div class="col-2">
-                    <div class="card w-100 h-100">
-                      <input type="checkbox"
-                             class="btn-check"
-                             name="cooks"
-                             value="{{ cook.id }}"
-                             id="id_cooks_{{ cook.id }}"
-                             autocomplete="off"
-                      >
-                      <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
-                             for="id_cooks_{{ cook.id }}"
-                             style="word-break: break-word"
-                      >
-                        <span class="text-center">{{ cook.username }}</span>
-                      </label>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          </fieldset>
+      <div class="col p-4">
+        <div class="row">
+          <div class="col me-2">
+            {% include "includes/multiple-check-buttons.html" with legend="Cooks" query_for="cooks" field="username" %}
+          </div>
+          <div class="col">
+            {% include "includes/multiple-check-buttons.html" with legend="Ingredients" query_for="ingredients" field="name" %}
+          </div>
         </div>
-        <div class="col w-100 h-100">
-          <fieldset>
-            <legend>Ingredients:</legend>
-            <div id="id_ingredients" class="border border-secondary p-3">
-              <div class="row g-3">
-                {% for ingredient in form.ingredients.field.queryset %}
-                  <div class="col-2">
-                    <div class="card w-100 h-100">
-                      <input type="checkbox"
-                             class="btn-check"
-                             name="ingredients"
-                             value="{{ ingredient.id }}"
-                             id="id_ingredients_{{ ingredient.id }}"
-                             autocomplete="off"
-                      >
-                      <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
-                             for="id_ingredients_{{ ingredient.id }}"
-                             style="word-break: break-word"
-                      >
-                        <span class="text-center">{{ ingredient.name }}</span>
-                      </label>
-                    </div>
-                  </div>
-                {% endfor %}
-              </div>
-            </div>
-          </fieldset>
-        </div>
-      </div>
-      <div class="col text-end">
-        <input type="submit" value="Submit" class="btn btn-primary">
       </div>
     </div>
+    <input type="submit" value="Submit" class="btn btn-primary col">
   </form>
 {% endblock %}
