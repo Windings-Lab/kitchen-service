@@ -1,0 +1,22 @@
+{% load custom_tags %}
+
+<fieldset class="h-100">
+  <legend>{{ legend }}:</legend>
+  <div class="row border border-secondary p-2">
+    {% for item in form|get_query:query_for %}
+      <div class="col-2 p-2">
+        <input type="checkbox"
+               class="btn-check"
+               name="{{ query_for }}"
+               value="{{ item.id }}"
+               id="id_{{ query_for }}_{{ item.id }}"
+               autocomplete="off">
+        <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
+               for="id_{{ query_for }}_{{ item.id }}"
+               style="word-break: break-word">
+          <span class="text-center">{{ item|get_attribute:field }}</span>
+        </label>
+      </div>
+    {% endfor %}
+  </div>
+</fieldset>
