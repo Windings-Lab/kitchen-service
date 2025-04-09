@@ -10,13 +10,14 @@
 <body>
   <header class="sticky-top">
     {% include "includes/navbar.html" %}
-    <div class="container text-center mt-4 mb-4">
-      <div class ="row d-flex align-items-end">
-      {% block header %}
-      {% endblock %}
-      </div>
-    </div>
   </header>
+  <div class="container text-center p-4">
+  </div>
+  {% block search_title_create %}
+    <div class="container text-center p-4 border border-1">
+        {% include "includes/header/search_title_create.html" %}
+    </div>
+  {% endblock %}
   <main class="container text-center">
     {% block main %}
     {% endblock %}
