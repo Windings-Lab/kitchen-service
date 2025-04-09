@@ -5,9 +5,9 @@
 {% endblock %}
 {% block main %}
   <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
-    {% for i in "123456" %}
+    {% for item in object_list %}
       <div class="col border border-1 border-light-subtle">
-        {% include "includes/buttons/card.html" %}
+        {% include "includes/buttons/card.html" with item=item %}
       </div>
     {% endfor %}
   </div>
