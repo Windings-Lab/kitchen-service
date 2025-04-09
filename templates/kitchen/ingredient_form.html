@@ -2,9 +2,7 @@
 
 {% block header %}
   {% with object|yesno:"Update,Create" as action %}
-    <div class="col">
-      <h1 class="display-4">{{ action|stringformat:"s an ingredient" }}</h1>
-    </div>
+    <h1 class="display-4">{{ action|stringformat:"s an ingredient" }}</h1>
   {% endwith %}
 {% endblock %}
 {% block main %}
