@@ -6,14 +6,7 @@
 
   <label for="id_image">
     <div class="ratio ratio-1x1">
-      {% if form.instance.image %}
-        <img id="image-preview"
-             src="{{ form.instance.image.url }}"
-             class="card-img-top"
-        >
-      {% else %}
-        <img id="image-preview" class="card-img-top">
-      {% endif %}
+      {% include "includes/image_source.html" with image=form.instance.image %}
     </div>
   </label>
 
