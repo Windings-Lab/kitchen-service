@@ -11,13 +11,13 @@
   </label>
 
   <div class="card-body">
-
-    <label for="name" class="visually-hidden form-label">Name</label>
+    <label for="id_name" class="visually-hidden form-label">Name</label>
     <input type="text"
            class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
-           id="name"
+           id="id_name"
            name="name"
            placeholder="Write a name..."
+           value="{{ object.name }}"
            required
     >
     <div class="invalid-feedback">
@@ -27,7 +27,6 @@
     </div>
 
   </div>
-
 </div>
 <script>
   // Get the file input and image preview elements

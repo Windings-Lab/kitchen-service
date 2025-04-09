@@ -1,27 +1,44 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 from PIL import Image
+from utility import create_route
 
 
-class ImageResizeMixin:
+class BaseModelMixin:
+    def __init_subclass__(cls, **kwargs):
+        super().__init_subclass__()
+        cls.route = create_route(cls.__name__)
+
+    def get_create_url(self):
+        url = "kitchen:" + self.route + "-create"
+
+        return reverse(url)
+
+    def get_update_url(self):
+        url = "kitchen:" + self.route + "-update"
+
+        return reverse(url, kwargs={"pk": self.id})
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Save original image
 
-        img_path = self.image.path
-        img = Image.open(img_path)
+        if self.image:
+            img_path = self.image.path
+            img = Image.open(img_path)
 
-        # Resize logic
-        max_size = (400, 400)  # Thumbnail size
-        img.thumbnail(max_size)
+            # Resize logic
+            max_size = (400, 400)  # Thumbnail size
+            img.thumbnail(max_size)
 
-        img.save(img_path)  # Overwrite the original
+            img.save(img_path)  # Overwrite the original
 
 
 class Cook(AbstractUser):
     years_of_experience = models.IntegerField(default=0)
 
 
-class DishType(ImageResizeMixin, models.Model):
+class DishType(BaseModelMixin, models.Model):
     name = models.CharField(max_length=255, unique=True)
     image = models.ImageField(
         upload_to="dish_type/",
@@ -33,7 +50,7 @@ class DishType(ImageResizeMixin, models.Model):
         return self.name
 
 
-class Ingredient(ImageResizeMixin, models.Model):
+class Ingredient(BaseModelMixin, models.Model):
     name = models.CharField(max_length=255, unique=True)
     image = models.ImageField(
         upload_to="ingredient/",
@@ -45,7 +62,7 @@ class Ingredient(ImageResizeMixin, models.Model):
         return self.name
 
 
-class Dish(ImageResizeMixin, models.Model):
+class Dish(BaseModelMixin, models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     price = models.IntegerField()

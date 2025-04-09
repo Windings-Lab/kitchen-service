@@ -1,23 +1,30 @@
+{% load custom_tags %}
+
+
 <div class="card text-center border-0">
   <div class="card-body">
-    <a href="{% url "kitchen:index" %}">
-      <div class="ratio ratio-1x1">
-        {% include "includes/image_source.html" with image=item.image %}
+      <div class="ratio ratio-1x1 border border-1">
+        <a href="{% url "kitchen:index" %}">
+          {% include "includes/image_source.html" with image=item.image %}
+        </a>
         <span class="container position-absolute top-0 p-0" style="height: 2.6rem">
           <div class="row d-flex justify-content-between m-0 h-100">
-            <div class="col-2 d-flex align-items-start p-0 h-100" style="width: 2.6rem">
-              <button class="btn btn-success border-0 p-0 w-100 h-100" type="submit">
+            <div class="col-2 p-0 h-100" style="width: 2.6rem">
+              <a href="{{ item|get_update_url }}"
+                 class="btn btn-success rounded-0 d-flex align-items-center justify-content-center border-0 p-0 w-100 h-100" style="background-color: #0c7d3e">
                 ✏️
-              </button>
+              </a>
             </div>
-            <div class="col-2 d-flex align-items-start p-0 h-100" style="width: 2.6rem">
-              <button class="btn btn-danger border-0 p-0 w-100 h-100" type="submit">
+            <div class="col-2 p-0 h-100" style="width: 2.6rem">
+              <a href="#"
+                 class="btn btn-danger rounded-0 d-flex align-items-center justify-content-center border-0 p-0 w-100 h-100">
                 X
-              </button>
+              </a>
             </div>
           </div>
         </span>
       </div>
+    <a href="{% url "kitchen:index" %}">
       <h3 class="card-title m-0 mt-3">{{ item.name }}</h3>
     </a>
   </div>

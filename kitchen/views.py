@@ -31,12 +31,17 @@ class DishTypeListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DishTypeListView, self).get_context_data(**kwargs)
-        context["create_url_page"] = reverse("kitchen:dish-type-create")
         context["title"] = "Dish Types"
         return context
 
 
 class DishTypeCreateView(generic.CreateView):
+    model = DishType
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:dish-type-list")
+
+
+class DishTypeUpdateView(generic.UpdateView):
     model = DishType
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-type-list")
@@ -48,12 +53,17 @@ class DishListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
-        context["create_url_page"] = reverse("kitchen:dish-create")
         context["title"] = "Dishes"
         return context
 
 
 class DishCreateView(generic.CreateView):
+    model = Dish
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:dish-list")
+
+
+class DishUpdateView(generic.UpdateView):
     model = Dish
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-list")
@@ -65,12 +75,17 @@ class IngredientListView(generic.ListView):
 
     def get_context_data(self, **kwargs):
         context = super(IngredientListView, self).get_context_data(**kwargs)
-        context["create_url_page"] = reverse("kitchen:ingredient-create")
         context["title"] = "Ingredients"
         return context
 
 
 class IngredientCreateView(generic.CreateView):
+    model = Ingredient
+    fields = "__all__"
+    success_url = reverse_lazy("kitchen:ingredient-list")
+
+
+class IngredientUpdateView(generic.UpdateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
