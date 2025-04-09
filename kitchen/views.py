@@ -32,6 +32,7 @@ class DishTypeListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(DishTypeListView, self).get_context_data(**kwargs)
         context["create_url_page"] = reverse("kitchen:dish-type-create")
+        context["title"] = "Dish Types"
         return context
 
 
@@ -48,6 +49,7 @@ class DishListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
         context["create_url_page"] = reverse("kitchen:dish-create")
+        context["title"] = "Dishes"
         return context
 
 
@@ -64,6 +66,7 @@ class IngredientListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context = super(IngredientListView, self).get_context_data(**kwargs)
         context["create_url_page"] = reverse("kitchen:ingredient-create")
+        context["title"] = "Ingredients"
         return context
 
 
