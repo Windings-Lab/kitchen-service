@@ -1,27 +1,11 @@
 {% extends "base.html" %}
 
-{% block header %}
-  {% include "includes/header/search_title_create.html" with create_url_page=create_url_page title=title %}
-{% endblock %}
 {% block main %}
-  <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-4 gy-4">
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
-    <div class="col">
-      {% include "includes/buttons/card.html" %}
-    </div>
+  <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
+    {% for i in "123456" %}
+      <div class="col border border-1 border-light-subtle">
+        {% include "includes/buttons/card.html" %}
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}
