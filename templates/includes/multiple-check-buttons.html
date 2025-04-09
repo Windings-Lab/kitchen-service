@@ -1,7 +1,9 @@
 {% load custom_tags %}
 
 <fieldset class="h-100">
-  <legend>{{ legend }}:</legend>
+  <legend>
+    {{ legend }}:
+  </legend>
   <div class="row border border-secondary p-2">
     {% for item in form|get_query:query_for %}
       <div class="col-2 p-2">
@@ -10,7 +12,11 @@
                name="{{ query_for }}"
                value="{{ item.id }}"
                id="id_{{ query_for }}_{{ item.id }}"
-               autocomplete="off">
+               autocomplete="off"
+               {% if object|get_attribute:query_for|is_in_query:item %}
+                 checked
+               {% endif %}
+        >
         <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
                for="id_{{ query_for }}_{{ item.id }}"
                style="word-break: break-word">
@@ -19,4 +25,9 @@
       </div>
     {% endfor %}
   </div>
+  <ul class="errorlist m-0 mt-2" id="id_cooks_error">
+    {% for error in form|get_errors:query_for %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
 </fieldset>

@@ -15,14 +15,16 @@
       <div class="col-9 d-flex flex-column">
         <div class="col d-flex flex-column mb-3">
           <label for="description" class="form-label">Description</label>
-          <textarea class="form-control d-flex flex-grow-1" id="description"></textarea>
+          <textarea class="form-control d-flex flex-grow-1" id="description">
+            {{ object.description }}
+          </textarea>
         </div>
         <div class="row">
           <div class="col-3">
             <label for="price" class="form-label visually-hidden">Price</label>
             <input type="text"
                    class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
-                   id="price" name="price" placeholder="Price..." required>
+                   id="price" name="price" placeholder="Price..." required value="{{ object.price }}">
             <div class="invalid-feedback">
               {% for error in form.price.errors %}
                 {{ error }}
@@ -35,7 +37,7 @@
                     id="dish_type" name="dish_type" required>
               <option selected disabled value="">Choose dish type</option>
               {% for item in form.dish_type.field.queryset %}
-                <option value={{ item.id }}>{{ item }}</option>
+                <option value="{{ item.id }}" {% if object.dish_type == item %} selected {% endif %}>{{ item }}</option>
               {% endfor %}
             </select>
             <div class="invalid-feedback">
