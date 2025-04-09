@@ -12,6 +12,8 @@
     {% include "includes/navbar.html" %}
   </header>
   <div class="container text-center p-4">
+    {% block header %}
+    {% endblock %}
   </div>
   {% block search_title_create %}
   {% endblock %}
