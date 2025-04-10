@@ -10,7 +10,8 @@ class DeleteItemView(generic.View):
         item_id = request.POST.get("item_id")
 
         # Dynamically fetch the model class using the model name
-        model_class = apps.get_model(__package__, class_name)
+        # TODO: Replace hardcoded app_label
+        model_class = apps.get_model("kitchen", class_name)
 
         # Fetch the item using the dynamically loaded model
         item = get_object_or_404(model_class, id=item_id)
