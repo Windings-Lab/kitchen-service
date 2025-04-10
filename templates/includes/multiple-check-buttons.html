@@ -4,7 +4,7 @@
   <legend>
     {{ legend }}:
   </legend>
-  <div class="row border border-secondary p-2">
+  <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-6 border border-secondary p-2">
     {% for item in form|get_query:query_for %}
       <div class="col-2 p-2">
         <input type="checkbox"

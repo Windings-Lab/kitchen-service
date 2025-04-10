@@ -1,6 +1,6 @@
-<div class="card">
-  <div class="card-header">
-    <label for="id_image" class="btn btn-secondary w-100">Set image</label>
+<div class="card rounded-0 rounded-top">
+  <div class="card-header p-0">
+    <label for="id_image" class="btn btn-secondary w-100 rounded-0 rounded-top">Set image</label>
   </div>
   <input type="file" class="form-control visually-hidden" id="id_image" accept="image/*" name="image">
 
@@ -11,15 +11,16 @@
   </label>
 
   <div class="card-body">
-    <label for="id_name" class="visually-hidden form-label">Name</label>
-    <input type="text"
-           class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
-           id="id_name"
-           name="name"
-           placeholder="Write a name..."
-           value="{{ object.name }}"
-           required
-    >
+    <div class="form-floating">
+      <input type="text"
+             class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
+             id="id_name"
+             name="name"
+             placeholder="Name..."
+             value="{{ object.name }}"
+             required>
+      <label for="id_name">Name...</label>
+    </div>
     <div class="invalid-feedback">
       {% for error in form.name.errors %}
         {{ error }}

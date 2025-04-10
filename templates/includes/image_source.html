@@ -1,5 +1,1 @@
-{% if image %}
-  <img id="image-preview" src="{{ image.url }}" class="card-img-top">
-{% else %}
-  <img id="image-preview" class="card-img-top">
-{% endif %}
+<img id="image-preview" {% if image %} src="{{ image.url }}" {% endif %} class="card-img-top rounded-0">

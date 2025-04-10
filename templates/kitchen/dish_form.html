@@ -14,24 +14,28 @@
       </div>
       <div class="col-9 d-flex flex-column">
         <div class="col d-flex flex-column mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea class="form-control d-flex flex-grow-1" id="description">
-            {{ object.description }}
-          </textarea>
+          <div class="form-floating d-flex flex-grow-1">
+            <textarea class="form-control h-100"
+                      id="description"
+                      name="description" placeholder="Description">{{ object.description }}</textarea>
+            <label for="description">Description</label>
+          </div>
         </div>
         <div class="row">
           <div class="col-3">
-            <label for="price" class="form-label visually-hidden">Price</label>
-            <input type="text"
-                   class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
-                   id="price" name="price" placeholder="Price..." required value="{{ object.price }}">
+            <div class="form-floating">
+              <input type="text"
+                     class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
+                     id="price" name="price" placeholder="Price..." required value="{{ object.price }}">
+              <label for="price">Price...</label>
+            </div>
             <div class="invalid-feedback">
               {% for error in form.price.errors %}
                 {{ error }}
               {% endfor %}
             </div>
           </div>
-          <div class="col">
+          <div class="col d-flex align-items-center">
             <label for="dish_type" class="visually-hidden"></label>
             <select class="form-select {% include "includes/form_validate.html" with validator=form.dish_type.errors %}"
                     id="dish_type" name="dish_type" required>

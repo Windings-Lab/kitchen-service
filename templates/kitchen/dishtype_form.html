@@ -6,11 +6,13 @@
   {% endwith %}
 {% endblock %}
 {% block main %}
-  <form action="" method="post" enctype="multipart/form-data" class="d-flex justify-content-center" novalidate>
-    {% csrf_token %}
-    <div class="row row-cols-1">
-      {% include "includes/cards/image_name_input.html" %}
-      <input type="submit" value="Submit" class="btn btn-primary col">
-    </div>
-  </form>
+  <div class="d-flex justify-content-center">
+    <form action="" method="post" enctype="multipart/form-data" class="w-25 h-25" novalidate>
+      {% csrf_token %}
+      <div>
+        {% include "includes/cards/image_name_input.html" %}
+        <input type="submit" value="Submit" class="btn btn-primary rounded-0 rounded-bottom w-100">
+      </div>
+    </form>
+  </div>
 {% endblock %}
