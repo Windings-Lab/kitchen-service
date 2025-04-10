@@ -47,6 +47,11 @@ class DishTypeUpdateView(generic.UpdateView):
     success_url = reverse_lazy("kitchen:dish-type-list")
 
 
+class DishTypeDetailView(generic.DetailView):
+    model = DishType
+    template_name = "kitchen/card_detail.html"
+
+
 class DishListView(generic.ListView):
     model = Dish
     template_name = "kitchen/default_list.html"
@@ -69,6 +74,10 @@ class DishUpdateView(generic.UpdateView):
     success_url = reverse_lazy("kitchen:dish-list")
 
 
+class DishDetailView(generic.DetailView):
+    model = Dish
+
+
 class IngredientListView(generic.ListView):
     model = Ingredient
     template_name = "kitchen/default_list.html"
@@ -89,3 +98,8 @@ class IngredientUpdateView(generic.UpdateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
+
+
+class IngredientDetailView(generic.DetailView):
+    model = Ingredient
+    template_name = "kitchen/card_detail.html"

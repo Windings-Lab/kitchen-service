@@ -20,6 +20,11 @@ class BaseModelMixin:
 
         return reverse(url, kwargs={"pk": self.id})
 
+    def get_detail_url(self):
+        url = "kitchen:" + self.route + "-detail"
+
+        return reverse(url, kwargs={"pk": self.id})
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Save original image
 

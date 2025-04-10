@@ -1,0 +1,31 @@
+{% load custom_tags %}
+
+<fieldset class="h-100">
+  <legend>
+    {{ legend }}:
+  </legend>
+  <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-6 border border-secondary p-2">
+  {% with object|get_attribute:query_for as query %}
+    {% for item in query.all %}
+      <div class="col-2 p-2">
+        <input type="checkbox"
+               class="btn-check"
+               name="{{ query_for }}"
+               value="{{ item.id }}"
+               id="id_{{ query_for }}_{{ item.id }}"
+               autocomplete="off"
+               {% if object|get_attribute:query_for|is_in_query:item %}
+                 checked
+               {% endif %}
+               disabled
+        >
+        <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
+               for="id_{{ query_for }}_{{ item.id }}"
+               style="word-break: break-word">
+          <span class="text-center">{{ item|get_attribute:field }}</span>
+        </label>
+      </div>
+    {% endfor %}
+  {% endwith %}
+  </div>
+</fieldset>

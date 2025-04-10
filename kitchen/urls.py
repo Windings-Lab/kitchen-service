@@ -10,14 +10,31 @@ module = importlib.import_module(module_name)
 
 def create_urls(model: type[BaseModelMixin]):
     class_name = model.__name__
-    list_view = getattr(module, class_name + "ListView").as_view()
-    create_view = getattr(module, class_name + "CreateView").as_view()
-    update_view = getattr(module, class_name + "UpdateView").as_view()
-    result = [
-        path(model.route + "/list/", list_view, name=model.route + "-list"),
-        path(model.route + "/create/", create_view, name=model.route + "-create"),
-        path(model.route + "/update/<int:pk>/", update_view, name=model.route + "-update"),
-    ]
+    result = []
+
+    try:
+        list_view = getattr(module, class_name + "ListView").as_view()
+        result.append(path(model.route + "/list/", list_view, name=model.route + "-list"))
+    except AttributeError:
+        pass
+
+    try:
+        create_view = getattr(module, class_name + "CreateView").as_view()
+        result.append(path(model.route + "/create/", create_view, name=model.route + "-create"))
+    except AttributeError:
+        pass
+
+    try:
+        update_view = getattr(module, class_name + "UpdateView").as_view()
+        result.append(path(model.route + "/update/<int:pk>/", update_view, name=model.route + "-update"))
+    except AttributeError:
+        pass
+
+    try:
+        detail_view = getattr(module, class_name + "DetailView").as_view()
+        result.append(path(model.route + "/detail/<int:pk>/", detail_view, name=model.route + "-detail"))
+    except AttributeError:
+        pass
 
     return result
 

@@ -30,7 +30,7 @@
           </div>
         </span>
       </div>
-    <a href="{% url "kitchen:index" %}">
+    <a href="{{ item|get_detail_url }}">
       <h3 class="card-title m-0 mt-3">{{ item.name }}</h3>
     </a>
   </div>
