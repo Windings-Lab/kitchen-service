@@ -5,6 +5,7 @@ from django.db.models import QuerySet
 from django.urls.exceptions import NoReverseMatch
 
 from kitchen.models import BaseModelMixin
+from utility import split_by_capitals
 
 register = template.Library()
 
@@ -64,3 +65,16 @@ def get_create_url(model_instance: BaseModelMixin):
 def get_detail_url(model_instance: BaseModelMixin):
     return model_instance.get_detail_url()
 
+
+@register.filter
+def get_model_class_name(model_cls: BaseModelMixin):
+    return " ".join([
+        item.lower()
+        for item in split_by_capitals(model_cls.__class__.__name__)
+    ])
+
+
+@register.filter
+def vowel_a_an(first_str, text: str):
+    result = first_str + ("an" if text[0].lower() in "aeiou" else "a")
+    return result

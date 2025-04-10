@@ -39,12 +39,14 @@ class DishTypeCreateView(generic.CreateView):
     model = DishType
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-type-list")
+    template_name = "kitchen/card_form.html"
 
 
 class DishTypeUpdateView(generic.UpdateView):
     model = DishType
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-type-list")
+    template_name = "kitchen/card_form.html"
 
 
 class DishTypeDetailView(generic.DetailView):
@@ -92,12 +94,14 @@ class IngredientCreateView(generic.CreateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
+    template_name = "kitchen/card_form.html"
 
 
 class IngredientUpdateView(generic.UpdateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
+    template_name = "kitchen/card_form.html"
 
 
 class IngredientDetailView(generic.DetailView):
