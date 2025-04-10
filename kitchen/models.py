@@ -1,25 +1,42 @@
+from functools import wraps
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from PIL import Image
 from utility import create_route
+from django.urls.exceptions import NoReverseMatch
+
+
+def handle_no_reverse_match(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except NoReverseMatch:
+            return "#"
+    return wrapper
 
 
 class BaseModelMixin:
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__()
         cls.route = create_route(cls.__name__)
+        cls.class_name = cls.__name__
 
+    @handle_no_reverse_match
     def get_create_url(self):
         url = "kitchen:" + self.route + "-create"
 
         return reverse(url)
 
+    @handle_no_reverse_match
     def get_update_url(self):
         url = "kitchen:" + self.route + "-update"
 
         return reverse(url, kwargs={"pk": self.id})
 
+    @handle_no_reverse_match
     def get_detail_url(self):
         url = "kitchen:" + self.route + "-detail"
 

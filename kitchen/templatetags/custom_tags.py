@@ -1,23 +1,13 @@
 from django import template
-from functools import reduce, wraps
+from functools import reduce
 
 from django.db.models import QuerySet
-from django.urls.exceptions import NoReverseMatch
+
 
 from kitchen.models import BaseModelMixin
 from utility import split_by_capitals
 
 register = template.Library()
-
-
-def handle_no_reverse_match(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except NoReverseMatch:
-            return "#"
-    return wrapper
 
 
 @register.filter
@@ -49,28 +39,10 @@ def get_errors(form, error_dict_name):
 
 
 @register.filter
-@handle_no_reverse_match
-def get_update_url(model_instance: BaseModelMixin):
-    return model_instance.get_update_url()
-
-
-@register.filter
-@handle_no_reverse_match
-def get_create_url(model_instance: BaseModelMixin):
-    return model_instance.get_create_url()
-
-
-@register.filter
-@handle_no_reverse_match
-def get_detail_url(model_instance: BaseModelMixin):
-    return model_instance.get_detail_url()
-
-
-@register.filter
-def get_model_class_name(model_cls: BaseModelMixin):
+def get_class_name(value):
     return " ".join([
         item.lower()
-        for item in split_by_capitals(model_cls.__class__.__name__)
+        for item in split_by_capitals(value.__class__.__name__)
     ])
 
 
