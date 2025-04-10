@@ -5,6 +5,22 @@ from django.views import generic
 from kitchen.models import Dish, DishType, Ingredient
 
 
+class SearchMixin:
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["search_value"] = self.request.GET.get("search_value", "")
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        search_value = self.request.GET.get("search_value")
+
+        if search_value:
+            queryset = queryset.filter(name__icontains=search_value)
+
+        return queryset
+
+
 def index(request):
     """View function for the home page of the site."""
 
@@ -25,7 +41,7 @@ def index(request):
     return render(request, "kitchen/index.html")
 
 
-class DishTypeListView(generic.ListView):
+class DishTypeListView(SearchMixin, generic.ListView):
     model = DishType
     template_name = "kitchen/default_list.html"
 
@@ -54,7 +70,7 @@ class DishTypeDetailView(generic.DetailView):
     template_name = "kitchen/card_detail.html"
 
 
-class DishListView(generic.ListView):
+class DishListView(SearchMixin, generic.ListView):
     model = Dish
     template_name = "kitchen/default_list.html"
 
@@ -80,7 +96,7 @@ class DishDetailView(generic.DetailView):
     model = Dish
 
 
-class IngredientListView(generic.ListView):
+class IngredientListView(SearchMixin, generic.ListView):
     model = Ingredient
     template_name = "kitchen/default_list.html"
 

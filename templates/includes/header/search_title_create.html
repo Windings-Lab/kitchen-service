@@ -2,9 +2,12 @@
 
 <div class="container text-center p-4 border border-1">
   <h1 class="display-4 text-start mb-4">{{ title }}</h1>
-  <div class="input-group">
-    <input type="search" class="form-control" placeholder="Search...">
-    <button class="btn btn-outline-secondary" type="submit">🔍</button>
-    <a href="{{ view.model.get_create_url }}" class="btn btn-success">Create</a>
-  </div>
+  <form action="" method="get" class="w-100" novalidate>
+    <div class="input-group">
+      <span class="input-group-text rounded-0">🔍</span>
+      <label for="search_value" class="visually-hidden"></label>
+      <input id="search_value" name="search_value" type="search" class="form-control rounded-0" placeholder="Search..." value="{{ search_value }}">
+      <a href="{{ view.model.get_create_url }}" class="btn btn-success d-flex align-items-center">Create</a>
+    </div>
+  </form>
 </div>
