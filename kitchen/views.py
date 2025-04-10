@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
 
 from kitchen.models import Dish, DishType, Ingredient
