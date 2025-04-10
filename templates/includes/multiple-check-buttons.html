@@ -13,7 +13,7 @@
                value="{{ item.id }}"
                id="id_{{ query_for }}_{{ item.id }}"
                autocomplete="off"
-               {% if object|get_attribute:query_for|is_in_query:item %}
+               {% if object and object|get_attribute:query_for|is_in_query:item %}
                  checked
                {% endif %}
         >
