@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
-from kitchen.models import Dish, DishType, Ingredient
+from kitchen.models import Dish, DishType, Ingredient, Cook
 
 
 class SearchMixin:
@@ -39,6 +39,11 @@ def index(request):
     # }
 
     return render(request, "kitchen/index.html")
+
+
+class CookListView(generic.ListView):
+    model = Cook
+    paginate_by = 5
 
 
 class DishTypeListView(SearchMixin, generic.ListView):
