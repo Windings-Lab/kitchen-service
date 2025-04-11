@@ -34,8 +34,8 @@ def is_in_query(query: QuerySet, item):
 
 
 @register.filter
-def get_errors(form, error_dict_name):
-    return form.errors.get(error_dict_name, [])
+def get_errors(form, error_dict_name: str):
+    return form.errors.get(error_dict_name.lower(), [])
 
 
 @register.filter

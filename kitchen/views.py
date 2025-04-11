@@ -1,3 +1,4 @@
+from django.db.models import Prefetch, Value, BooleanField, When, Case
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -92,15 +93,86 @@ class DishCreateView(generic.CreateView):
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-list")
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["dish_types"] = DishType.objects.only("name")
+
+        return context
+
 
 class DishUpdateView(generic.UpdateView):
     model = Dish
-    fields = "__all__"
+    fields = ["name", "description", "price", "image", "dish_type"]
     success_url = reverse_lazy("kitchen:dish-list")
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.select_related("dish_type").only(
+            "name",
+            "description",
+            "price",
+            "image",
+            "dish_type_id",
+            "dish_type__id",
+            "dish_type__name",
+        )
+
+        return query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        dish = self.object
+
+        ingredients = Ingredient.objects.only("name").annotate(
+            selected=Case(
+                When(id__in=dish.ingredients.values("id"), then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField()
+            )
+        )
+        cooks = Cook.objects.only("username").annotate(
+            selected=Case(
+                When(id__in=dish.cooks.values("id"), then=Value(True)),
+                default=Value(False),
+                output_field=BooleanField()
+            )
+        )
+        context["dish_types"] = DishType.objects.only("name")
+        context["ingredients"] = ingredients.order_by("-selected")
+        context["cooks"] = cooks.order_by("-selected")
+
+        return context
+
 
 
 class DishDetailView(generic.DetailView):
     model = Dish
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.select_related("dish_type").only(
+            "name",
+            "description",
+            "price",
+            "image",
+            "dish_type_id",
+            "dish_type__id",
+            "dish_type__name",
+        )
+
+        return query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        dish = self.object
+
+        context["ingredients"] = dish.ingredients.all()
+        context["cooks"] = dish.cooks.all()
+
+        return context
 
 
 class IngredientListView(SearchMixin, generic.ListView):

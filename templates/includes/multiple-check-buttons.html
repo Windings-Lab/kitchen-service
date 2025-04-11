@@ -5,20 +5,20 @@
     {{ legend }}:
   </legend>
   <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-6 border border-secondary p-2">
-    {% for item in form|get_query:query_for %}
+    {% for item in query_for %}
       <div class="col-2 p-2">
         <input type="checkbox"
                class="btn-check"
-               name="{{ query_for }}"
+               name="{{ legend|lower }}"
                value="{{ item.id }}"
-               id="id_{{ query_for }}_{{ item.id }}"
+               id="id_{{ legend|lower }}_{{ item.id }}"
                autocomplete="off"
-               {% if object and object|get_attribute:query_for|is_in_query:item %}
+               {% if item.selected %}
                  checked
                {% endif %}
         >
         <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
-               for="id_{{ query_for }}_{{ item.id }}"
+               for="id_{{ legend|lower }}_{{ item.id }}"
                style="word-break: break-word">
           <span class="text-center">{{ item|get_attribute:field }}</span>
         </label>
@@ -26,7 +26,7 @@
     {% endfor %}
   </div>
   <ul class="errorlist m-0 mt-2" id="id_cooks_error">
-    {% for error in form|get_errors:query_for %}
+    {% for error in form|get_errors:legend %}
       <li>{{ error }}</li>
     {% endfor %}
   </ul>

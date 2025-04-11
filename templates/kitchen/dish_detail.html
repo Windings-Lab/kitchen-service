@@ -3,7 +3,7 @@
 {% block main %}
   <div class="row">
     <div class="col-3">
-      {% include "includes/cards/image_name_readonly.html" with readonly="True" %}
+      {% include "includes/cards/image_name_readonly.html" %}
     </div>
     <div class="col-9 d-flex flex-column">
       <div class="col d-flex flex-column mb-3">
@@ -27,10 +27,10 @@
     <div class="col p-4">
       <div class="row">
         <div class="col me-2">
-          {% include "includes/multiple-check-buttons-readonly.html" with legend="Cooks" query_for="cooks" field="username" readonly="True" %}
+          {% include "includes/multiple-check-buttons-readonly.html" with legend="Cooks" query_for=cooks field="username" %}
         </div>
         <div class="col">
-          {% include "includes/multiple-check-buttons-readonly.html" with legend="Ingredients" query_for="ingredients" field="name" readonly="True" %}
+          {% include "includes/multiple-check-buttons-readonly.html" with legend="Ingredients" query_for=ingredients field="name" %}
         </div>
       </div>
     </div>
