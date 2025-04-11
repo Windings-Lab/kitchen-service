@@ -49,6 +49,7 @@ class CookListView(generic.ListView):
 class DishTypeListView(SearchMixin, generic.ListView):
     model = DishType
     template_name = "kitchen/default_list.html"
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super(DishTypeListView, self).get_context_data(**kwargs)
@@ -78,6 +79,7 @@ class DishTypeDetailView(generic.DetailView):
 class DishListView(SearchMixin, generic.ListView):
     model = Dish
     template_name = "kitchen/default_list.html"
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super(DishListView, self).get_context_data(**kwargs)
@@ -104,6 +106,7 @@ class DishDetailView(generic.DetailView):
 class IngredientListView(SearchMixin, generic.ListView):
     model = Ingredient
     template_name = "kitchen/default_list.html"
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super(IngredientListView, self).get_context_data(**kwargs)

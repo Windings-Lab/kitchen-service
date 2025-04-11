@@ -4,12 +4,23 @@
   {% include "includes/header/search_title_create.html" %}
 {% endblock %}
 {% block main %}
-  <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3">
-    {% for item in object_list %}
-      <div class="col border border-1 border-light-subtle">
-        {% include "includes/cards/card.html" with item=item %}
+  <div class="card">
+    <div class="card-header">
+      {% include "includes/header/search_title_create.html" %}
+    </div>
+    <div class="card-body">
+      <div class="row row-cols-2 row-cols-sm-2 row-cols-md-2 row-cols-lg-3 g-3">
+        {% for item in object_list %}
+          <div class="col">
+            {% include "includes/cards/card.html" with item=item %}
+          </div>
+        {% endfor %}
       </div>
-    {% endfor %}
+    </div>
+    <div class="card-footer">
+      {% include "includes/pagination.html" %}
+    </div>
   </div>
   {% include "includes/confirm_form.html" %}
 {% endblock %}
+
