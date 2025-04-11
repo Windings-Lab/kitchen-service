@@ -56,7 +56,7 @@ class BaseModelMixin:
             img.save(img_path)  # Overwrite the original
 
 
-class Cook(AbstractUser):
+class Cook(BaseModelMixin, AbstractUser):
     years_of_experience = models.IntegerField(default=0)
 
 
