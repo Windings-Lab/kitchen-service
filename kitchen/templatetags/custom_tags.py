@@ -53,17 +53,16 @@ def vowel_a_an(first_str, text: str):
 
 
 @register.simple_tag(takes_context=True)
-def query_transform(context, **kwargs):
+def query_transform(context, key, value):
     request = context.get("request")
     if not request:
         return ""
 
     updated = request.GET.copy()
-    for key, value in kwargs.items():
-        if value is not None:
-            updated[key] = value
-        else:
-            updated.pop(key, 0)
+    if value is not None:
+        updated[key] = value
+    else:
+        updated.pop(key, 0)
 
     result = updated.urlencode()
     return result
