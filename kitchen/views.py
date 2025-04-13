@@ -160,8 +160,6 @@ class DishDetailView(generic.DetailView):
             "description",
             "price",
             "image",
-            "dish_type_id",
-            "dish_type__id",
             "dish_type__name",
         )
 
@@ -172,8 +170,8 @@ class DishDetailView(generic.DetailView):
 
         dish = self.object
 
-        context[Ingredient.plural_name] = dish.ingredients.all()
-        context[Cook.plural_name] = dish.cooks.all()
+        context[Ingredient.plural_name] = dish.ingredients.only("name")
+        context[Cook.plural_name] = dish.cooks.only("username")
 
         return context
 
