@@ -1,11 +1,15 @@
 from functools import wraps
 
+import inflect
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
 from PIL import Image
 from utility import create_route
 from django.urls.exceptions import NoReverseMatch
+
+
+p = inflect.engine()
 
 
 def handle_no_reverse_match(func):
@@ -19,10 +23,20 @@ def handle_no_reverse_match(func):
 
 
 class BaseModelMixin:
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    @classmethod
     def __init_subclass__(cls, **kwargs):
         super().__init_subclass__()
         cls.route = create_route(cls.__name__)
         cls.class_name = cls.__name__
+        cls.page_name = cls.route + "-page"
+        cls.plural_name = (
+            p.plural(cls.class_name.lower())
+             .replace(" ", "")
+        )
+
 
     @handle_no_reverse_match
     def get_create_url(self):

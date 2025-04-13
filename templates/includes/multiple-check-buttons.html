@@ -1,32 +1,28 @@
 {% load custom_tags %}
 
 <fieldset class="h-100">
-  <legend>
-    {{ legend }}:
-  </legend>
-  <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-6 border border-secondary p-2">
+  <div class="row g-1 object-list">
     {% for item in query_for %}
-      <div class="col-2 p-2">
+      <div class="col-12">
         <input type="checkbox"
                class="btn-check"
-               name="{{ legend|lower }}"
+               name="{{ model.plural_name }}"
                value="{{ item.id }}"
-               id="id_{{ legend|lower }}_{{ item.id }}"
+               id="id_{{ model.plural_name }}_{{ item.id }}"
                autocomplete="off"
                {% if item.selected %}
-                 checked
+                checked
                {% endif %}
         >
-        <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
-               for="id_{{ legend|lower }}_{{ item.id }}"
-               style="word-break: break-word">
+        <label class="btn btn-outline-primary w-100"
+               for="id_{{ model.plural_name }}_{{ item.id }}">
           <span class="text-center">{{ item|get_attribute:field }}</span>
         </label>
       </div>
     {% endfor %}
   </div>
   <ul class="errorlist m-0 mt-2" id="id_cooks_error">
-    {% for error in form|get_errors:legend %}
+    {% for error in form|get_errors:model.plural_name %}
       <li>{{ error }}</li>
     {% endfor %}
   </ul>

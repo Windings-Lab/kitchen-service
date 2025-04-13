@@ -1,4 +1,4 @@
-from django.db.models import Prefetch, Value, BooleanField, When, Case
+from django.db.models import Value, BooleanField, When, Case, Prefetch
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -96,14 +96,16 @@ class DishCreateView(generic.CreateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["dish_types"] = DishType.objects.only("name")
+        context[DishType.plural_name] = DishType.objects.only("name")
+        context[Ingredient.plural_name] = Ingredient.objects.only("name")
+        context[Cook.plural_name] = Cook.objects.only("username")
 
         return context
 
 
 class DishUpdateView(generic.UpdateView):
     model = Dish
-    fields = ["name", "description", "price", "image", "dish_type"]
+    fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-list")
 
     def get_queryset(self):
@@ -117,6 +119,7 @@ class DishUpdateView(generic.UpdateView):
             "dish_type__id",
             "dish_type__name",
         )
+        query = query.prefetch_related("ingredients", "cooks")
 
         return query
 
@@ -139,9 +142,9 @@ class DishUpdateView(generic.UpdateView):
                 output_field=BooleanField()
             )
         )
-        context["dish_types"] = DishType.objects.only("name")
-        context["ingredients"] = ingredients.order_by("-selected")
-        context["cooks"] = cooks.order_by("-selected")
+        context[DishType.plural_name] = DishType.objects.only("name")
+        context[Ingredient.plural_name] = ingredients.order_by("-selected")
+        context[Cook.plural_name] = cooks.order_by("-selected")
 
         return context
 
@@ -169,8 +172,8 @@ class DishDetailView(generic.DetailView):
 
         dish = self.object
 
-        context["ingredients"] = dish.ingredients.all()
-        context["cooks"] = dish.cooks.all()
+        context[Ingredient.plural_name] = dish.ingredients.all()
+        context[Cook.plural_name] = dish.cooks.all()
 
         return context
 

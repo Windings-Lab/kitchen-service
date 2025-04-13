@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block header %}
   {% with object|yesno:"Update,Create" as action %}
@@ -40,7 +41,7 @@
             <select class="form-select {% include "includes/form_validate.html" with validator=form.dish_type.errors %}"
                     id="dish_type" name="dish_type" required>
               <option selected disabled value="">Choose dish type</option>
-              {% for item in dish_types %}
+              {% for item in dishtypes %}
                 <option value="{{ item.id }}" {% if object.dish_type == item %} selected {% endif %}>{{ item }}</option>
               {% endfor %}
             </select>
@@ -55,10 +56,30 @@
       <div class="col p-4">
         <div class="row">
           <div class="col me-2">
-            {% include "includes/multiple-check-buttons.html" with legend="Cooks" query_for=cooks field="username" %}
+            <div class="card paginator">
+              <div class="card-header">
+                Cooks
+              </div>
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons.html" with model=cooks.model query_for=cooks field="username" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+            </div>
           </div>
           <div class="col">
-            {% include "includes/multiple-check-buttons.html" with legend="Ingredients" query_for=ingredients field="name" %}
+            <div class="card paginator">
+              <div class="card-header">
+                Ingredients
+              </div>
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons.html" with model=ingredients.model query_for=ingredients field="name" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,26 +1,12 @@
 {% load custom_tags %}
 
 <fieldset class="h-100">
-  <legend>
-    {{ legend }}:
-  </legend>
-  <div class="row row-cols-sm-2 row-cols-md-3 row-cols-lg-6 border border-secondary p-2">
+  <div class="row g-1 object-list">
   {% for item in query_for %}
-    <div class="col-2 p-2">
-      <input type="checkbox"
-             class="btn-check"
-             name="{{ legend|lower }}"
-             value="{{ item.id }}"
-             id="id_{{ legend|lower }}_{{ item.id }}"
-             autocomplete="off"
-             checked
-             disabled
-      >
-      <label class="btn btn-outline-primary w-100 h-100 d-flex justify-content-center align-items-center"
-             for="id_{{ legend|lower }}_{{ item.id }}"
-             style="word-break: break-word">
+    <div class="col-12">
+      <button type="button" class="btn btn-primary w-100" disabled>
         <span class="text-center">{{ item|get_attribute:field }}</span>
-      </label>
+      </button>
     </div>
   {% endfor %}
   </div>
