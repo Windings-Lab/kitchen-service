@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Value, BooleanField, When, Case, Prefetch
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -45,7 +46,7 @@ def index(request):
     return render(request, "kitchen/index.html")
 
 
-class CookListView(generic.ListView):
+class CookListView(SearchMixin, generic.ListView):
     model = Cook
     paginate_by = 5
 
@@ -61,21 +62,21 @@ class DishTypeListView(SearchMixin, generic.ListView):
         return context
 
 
-class DishTypeCreateView(generic.CreateView):
+class DishTypeCreateView(LoginRequiredMixin, generic.CreateView):
     model = DishType
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-type-list")
     template_name = "kitchen/card_form.html"
 
 
-class DishTypeUpdateView(generic.UpdateView):
+class DishTypeUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = DishType
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-type-list")
     template_name = "kitchen/card_form.html"
 
 
-class DishTypeDetailView(generic.DetailView):
+class DishTypeDetailView(LoginRequiredMixin, generic.DetailView):
     model = DishType
     template_name = "kitchen/card_detail.html"
 
@@ -91,7 +92,7 @@ class DishListView(SearchMixin, generic.ListView):
         return context
 
 
-class DishCreateView(generic.CreateView):
+class DishCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dish
     fields = "__all__"
     success_url = reverse_lazy("kitchen:dish-list")
@@ -106,7 +107,7 @@ class DishCreateView(generic.CreateView):
         return context
 
 
-class DishUpdateView(generic.UpdateView):
+class DishUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Dish
     form_class = DishForm
     success_url = reverse_lazy("kitchen:dish-list")
@@ -138,7 +139,7 @@ class DishUpdateView(generic.UpdateView):
 
 
 
-class DishDetailView(generic.DetailView):
+class DishDetailView(LoginRequiredMixin, generic.DetailView):
     model = Dish
 
     def get_queryset(self):
@@ -175,20 +176,20 @@ class IngredientListView(SearchMixin, generic.ListView):
         return context
 
 
-class IngredientCreateView(generic.CreateView):
+class IngredientCreateView(LoginRequiredMixin, generic.CreateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
     template_name = "kitchen/card_form.html"
 
 
-class IngredientUpdateView(generic.UpdateView):
+class IngredientUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Ingredient
     fields = "__all__"
     success_url = reverse_lazy("kitchen:ingredient-list")
     template_name = "kitchen/card_form.html"
 
 
-class IngredientDetailView(generic.DetailView):
+class IngredientDetailView(LoginRequiredMixin, generic.DetailView):
     model = Ingredient
     template_name = "kitchen/card_detail.html"

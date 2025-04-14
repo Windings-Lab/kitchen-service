@@ -6,6 +6,7 @@
       <a class="d-flex align-items-center" href="{{ item.get_detail_url }}">
         <img id="image-preview" {% if item.image %} src="{{ item.image.url }}" {% endif %} class="card-img-top rounded-1">
       </a>
+      {% if user.is_authenticated %}
       <span class="container position-absolute top-0 p-0" style="height: 2.6rem">
         <div class="row d-flex justify-content-between m-0 h-100">
           <div class="col-2 p-0 h-100" style="width: 2.6rem">
@@ -33,6 +34,7 @@
           </div>
         </div>
       </span>
+      {% endif %}
     </div>
     <a href="{{ item.get_detail_url }}">
       <h3 class="card-title m-0 mt-2">{{ item.name }}</h3>

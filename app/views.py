@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.views import generic
 from django.apps import apps
 
 
-class DeleteItemView(generic.View):
+class DeleteItemView(LoginRequiredMixin, generic.View):
     def post(self, request, *args, **kwargs):
         # Get the model name and item ID from the POST data
         class_name = request.POST.get("class_name")
