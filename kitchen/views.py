@@ -16,9 +16,11 @@ class SearchMixin:
     def get_queryset(self):
         queryset = super().get_queryset()
         search_value = self.request.GET.get("search_value")
+        search_field = self.request.GET.get("search_field") or "name"
 
         if search_value:
-            queryset = queryset.filter(name__icontains=search_value)
+            lookup = f"{search_field}__icontains"
+            queryset = queryset.filter(**{lookup: search_value})
 
         return queryset
 
