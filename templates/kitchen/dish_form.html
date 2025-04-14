@@ -61,7 +61,7 @@
                 Cooks
               </div>
               <div class="card-body">
-                {% include "includes/multiple-check-buttons.html" with model=cooks.model query_for=cooks field="username" %}
+                {% include "includes/multiple-check-buttons.html" with query_for=form.fields.cooks.queryset field="username" %}
               </div>
               <div class="card-footer">
                 {% include "includes/pagination_client.html" %}
@@ -74,7 +74,7 @@
                 Ingredients
               </div>
               <div class="card-body">
-                {% include "includes/multiple-check-buttons.html" with model=ingredients.model query_for=ingredients field="name" %}
+                {% include "includes/multiple-check-buttons.html" with query_for=form.fields.ingredients.queryset field="name" %}
               </div>
               <div class="card-footer">
                 {% include "includes/pagination_client.html" %}

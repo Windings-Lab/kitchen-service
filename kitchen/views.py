@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from kitchen.forms import DishForm
 from kitchen.models import Dish, DishType, Ingredient, Cook
 
 
@@ -105,7 +106,7 @@ class DishCreateView(generic.CreateView):
 
 class DishUpdateView(generic.UpdateView):
     model = Dish
-    fields = "__all__"
+    form_class = DishForm
     success_url = reverse_lazy("kitchen:dish-list")
 
     def get_queryset(self):
@@ -115,11 +116,12 @@ class DishUpdateView(generic.UpdateView):
             "description",
             "price",
             "image",
-            "dish_type_id",
-            "dish_type__id",
             "dish_type__name",
         )
-        query = query.prefetch_related("ingredients", "cooks")
+        query = query.prefetch_related(
+            Prefetch("ingredients", queryset=Ingredient.objects.only("name")),
+            Prefetch("cooks", queryset=Cook.objects.only("username")),
+        )
 
         return query
 
@@ -128,23 +130,7 @@ class DishUpdateView(generic.UpdateView):
 
         dish = self.object
 
-        ingredients = Ingredient.objects.only("name").annotate(
-            selected=Case(
-                When(id__in=dish.ingredients.values("id"), then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()
-            )
-        )
-        cooks = Cook.objects.only("username").annotate(
-            selected=Case(
-                When(id__in=dish.cooks.values("id"), then=Value(True)),
-                default=Value(False),
-                output_field=BooleanField()
-            )
-        )
         context[DishType.plural_name] = DishType.objects.only("name")
-        context[Ingredient.plural_name] = ingredients.order_by("-selected")
-        context[Cook.plural_name] = cooks.order_by("-selected")
 
         return context
 
