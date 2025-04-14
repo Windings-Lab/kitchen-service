@@ -18,3 +18,7 @@ DATABASES = {
         "DISABLE_SERVER_SIDE_CURSORS": True
     }
 }
+
+STATIC_ROOT = "staticfiles"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
