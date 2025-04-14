@@ -1,0 +1,24 @@
+[
+  {
+    "model": "kitchen.dish",
+    "pk": 2,
+    "fields": {
+      "name": "Hamster",
+      "description": "",
+      "price": 123,
+      "dish_type": 2,
+      "image": "dish/0db3cead77e66635c6fe1b3142d238037ae56526r1-1600-900v2_hq.jpg"
+    }
+  },
+  {
+    "model": "kitchen.dish",
+    "pk": 7,
+    "fields": {
+      "name": "test",
+      "description": "",
+      "price": 1243,
+      "dish_type": 2,
+      "image": ""
+    }
+  }
+]

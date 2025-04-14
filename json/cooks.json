@@ -1,5 +1,21 @@
 [
   {
+    "model": "kitchen.cook",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1000000$qaoqygrqxdZGRIC72RjOlJ$ZSw8tTuDbSYjnk305++nXnAOYjig68X3LqVSIppS/O0=",
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "Admin",
+      "last_name": "User",
+      "is_staff": true,
+      "is_active": true,
+      "years_of_experience": 9999,
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
     "pk": 2,
     "model": "kitchen.cook",
     "fields": {
