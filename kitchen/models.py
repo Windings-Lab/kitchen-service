@@ -59,7 +59,7 @@ class BaseModelMixin:
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Save original image
 
-        if self.image:
+        if hasattr(self, "image") and self.image:
             img_path = self.image.path
             img = Image.open(img_path)
 

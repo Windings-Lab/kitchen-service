@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    <p>Please login to see this page.</p>
+  {% endif %}
+
+  <div class="form-signin w-25 m-auto">
+    <form method="post" action="{% url 'login' %}" novalidate>
+      {% csrf_token %}
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <div class="form-floating">
+        <input class="form-control rounded-0 rounded-top"
+               type="text"
+               placeholder="Username"
+               name="username"
+               autofocus=""
+               autocapitalize="none"
+               autocomplete="username"
+               maxlength="150"
+               required=""
+               id="id_username">
+        <label for="id_username">Username</label>
+      </div>
+      <div class="form-floating">
+        <input class="form-control rounded-0"
+               type="password"
+               placeholder="Password"
+               name="password"
+               autocomplete="current-password"
+               required=""
+               id="id_password">
+        <label for="id_password">Password</label>
+      </div>
+
+      <input type="submit" value="Sign in" class="btn btn-primary w-100 py-2 rounded-0 rounded-bottom" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  </div>
+{% endblock %}

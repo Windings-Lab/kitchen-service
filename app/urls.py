@@ -27,6 +27,7 @@ urlpatterns = [
     path("", include("kitchen.urls", namespace="kitchen")),
     path("__debug__/", include("debug_toolbar.urls")),
     path("delete_item/", DeleteItemView.as_view(), name="delete_item"),
+    path("accounts/", include("django.contrib.auth.urls"))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
