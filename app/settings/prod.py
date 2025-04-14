@@ -1,7 +1,11 @@
 from .base import *
 
+RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+
 DEBUG = False
 ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 DATABASES = {
@@ -20,5 +24,4 @@ DATABASES = {
 }
 
 STATIC_ROOT = "staticfiles"
-
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
