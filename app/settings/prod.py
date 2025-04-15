@@ -25,3 +25,20 @@ DATABASES = {
 
 STATIC_ROOT = "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Media file storage
+
+INSTALLED_APPS += ["storages"]
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID = os.environ.get("B2_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.environ.get("B2_APP_KEY")
+AWS_STORAGE_BUCKET_NAME = os.environ.get("B2_BUCKET_NAME")
+AWS_S3_ENDPOINT_URL = os.environ.get("B2_ENDPOINT_URL")
+AWS_QUERYSTRING_AUTH = True
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+
+MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT_URL}/"
