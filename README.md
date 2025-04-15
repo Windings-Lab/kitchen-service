@@ -73,10 +73,7 @@ This is an example of how to list things you need to use the software and how to
 
 1. Install database data
 ```sh
-  python manage.py loaddata .\json\cooks.json;
-  python manage.py loaddata .\json\dish_types.json;
-  python manage.py loaddata .\json\dishes.json;
-  python manage.py loaddata .\json\ingredients.json;
+  python manage.py loaddata .\json\dump.json;
 ```
 
 2. Login with
