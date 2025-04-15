@@ -3,7 +3,7 @@
 <div class="card text-center">
   <div class="card-body">
     <div class="ratio ratio-1x1 rounded rounded-top border-bottom">
-      <a class="d-flex align-items-center" href="{{ item.get_detail_url }}">
+      <a class="d-flex align-items-center ratio ratio-1x1" href="{{ item.get_detail_url }}">
         <img id="image-preview" {% if item.image %} src="{{ item.image.url }}" {% endif %} class="card-img-top rounded-1">
       </a>
       {% if user.is_authenticated %}

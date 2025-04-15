@@ -1,7 +1,9 @@
 from functools import wraps
+from io import BytesIO
 
 import inflect
 from django.contrib.auth.models import AbstractUser
+from django.core.files.base import ContentFile
 from django.db import models
 from django.urls import reverse
 from PIL import Image
@@ -57,17 +59,17 @@ class BaseModelMixin:
         return reverse(url, kwargs={"pk": self.id})
 
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)  # Save original image
-
         if hasattr(self, "image") and self.image:
-            img_path = self.image.path
-            img = Image.open(img_path)
+            img = Image.open(self.image)
+            img.thumbnail((300, 300))
 
-            # Resize logic
-            max_size = (400, 400)  # Thumbnail size
-            img.thumbnail(max_size)
+            buffer = BytesIO()
+            img.save(buffer, format=img.format or "PNG")
+            buffer.seek(0)
 
-            img.save(img_path)  # Overwrite the original
+            self.image.save(self.image.name, ContentFile(buffer.read()), save=False)
+
+        super().save(*args, **kwargs)
 
 
 class Cook(BaseModelMixin, AbstractUser):

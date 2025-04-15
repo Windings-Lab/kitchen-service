@@ -11,11 +11,11 @@ if RENDER_EXTERNAL_HOSTNAME:
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": getenv("PGDATABASE"),
-        "USER": getenv("PGUSER"),
-        "PASSWORD": getenv("PGPASSWORD"),
-        "HOST": getenv("PGHOST"),
-        "PORT": int(getenv("PGPORT", 5432)),
+        "NAME": os.environ.get("PGDATABASE"),
+        "USER": os.environ.get("PGUSER"),
+        "PASSWORD": os.environ.get("PGPASSWORD"),
+        "HOST": os.environ.get("PGHOST"),
+        "PORT": int(os.environ.get("PGPORT", 5432)),
         "OPTIONS": {
             "sslmode": "require",
         },
@@ -23,22 +23,35 @@ DATABASES = {
     }
 }
 
+# Storage
 STATIC_ROOT = "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# Media file storage
-
 INSTALLED_APPS += ["storages"]
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 AWS_ACCESS_KEY_ID = os.environ.get("B2_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("B2_APP_KEY")
 AWS_STORAGE_BUCKET_NAME = os.environ.get("B2_BUCKET_NAME")
 AWS_S3_ENDPOINT_URL = os.environ.get("B2_ENDPOINT_URL")
-AWS_QUERYSTRING_AUTH = True
 
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "OPTIONS": {
+            "access_key": AWS_ACCESS_KEY_ID,
+            "secret_key": AWS_SECRET_ACCESS_KEY,
+            "bucket_name": AWS_STORAGE_BUCKET_NAME,
+            "endpoint_url": AWS_S3_ENDPOINT_URL,
+            "file_overwrite": False,
+            "default_acl": None,
+        },
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
+}
 
 MEDIA_URL = f"https://{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_ENDPOINT_URL}/"
+
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
