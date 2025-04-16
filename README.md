@@ -8,7 +8,7 @@
     <a href="https://github.com/Windings-Lab/kitchen-service"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/Windings-Lab/kitchen-service">View Demo</a>
+    <a href="https://kitchen-service-gnab.onrender.com">View Demo</a>
     &middot;
     <a href="https://github.com/Windings-Lab/kitchen-service/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     &middot;
