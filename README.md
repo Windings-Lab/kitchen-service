@@ -82,6 +82,28 @@ Username: admin
 Password: admin
 ```
 
+### Environment
+
+```dotenv
+# DB
+PGDATABASE # PostgreSQL DB
+PGUSER # PostgreSQL User
+PGPASSWORD # PostgreSQL Password
+PGHOST # PostgreSQL Host
+PGPORT # PostgreSQL Port
+
+# Django
+DJANGO_SETTINGS_MODULE
+DJANGO_SECRET_KEY
+RENDER_EXTERNAL_HOSTNAME
+
+# Storage
+B2_KEY_ID # Backblaze key id
+B2_APP_KEY # Backblaze app key
+B2_BUCKET_NAME # Backblaze bucket name
+B2_ENDPOINT_URL # Backblaze endpoint
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
