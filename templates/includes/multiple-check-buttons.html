@@ -1,0 +1,29 @@
+{% load custom_tags %}
+
+<fieldset class="h-100">
+  <div class="row g-1 object-list">
+    {% for item in query_for %}
+      <div class="col-12">
+        <input type="checkbox"
+               class="btn-check"
+               name="{{ item.plural_name }}"
+               value="{{ item.id }}"
+               id="id_{{ item.plural_name }}_{{ item.id }}"
+               autocomplete="off"
+               {% if item.selected %}
+                checked
+               {% endif %}
+        >
+        <label class="btn btn-outline-primary w-100"
+               for="id_{{ item.plural_name }}_{{ item.id }}">
+          <span class="text-center">{{ item|get_attribute:field }}</span>
+        </label>
+      </div>
+    {% endfor %}
+  </div>
+  <ul class="errorlist m-0 mt-2" id="id_cooks_error">
+    {% for error in form|get_errors:query_for.model.plural_name %}
+      <li>{{ error }}</li>
+    {% endfor %}
+  </ul>
+</fieldset>

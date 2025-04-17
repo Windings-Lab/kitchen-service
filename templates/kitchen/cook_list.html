@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="card">
+    <div class="card-header text-start display-6">
+      {% include "includes/header/search_title_create.html" with title="Cooks" search_field="username" %}
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Username</th>
+            <th scope="col">Years</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for cook in object_list %}
+            <tr>
+              <th scope="row">{{ cook.id }}</th>
+              <td>{{ cook.first_name }}</td>
+              <td>{{ cook.last_name }}</td>
+              <td>{{ cook.username }}</td>
+              <td>{{ cook.years_of_experience }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="card-footer">
+      {% include "includes/pagination.html" %}
+    </div>
+  </div>
+{% endblock %}

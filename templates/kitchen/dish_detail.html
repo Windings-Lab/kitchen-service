@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block main %}
+  <div class="row">
+    <div class="col-3">
+      {% include "includes/cards/image_name_readonly.html" %}
+    </div>
+    <div class="col-9 d-flex flex-column">
+      <div class="col d-flex flex-column mb-3">
+        <div class="form-control d-flex flex-grow-1">{{ object.description }}</div>
+      </div>
+      <div class="row">
+        <div class="col-5">
+          <div class="input-group">
+            <div class="input-group-text">Price: </div>
+            <div class="form-control d-flex justify-content-start">{{ object.price }}</div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="input-group">
+            <div class="input-group-text">Dish type: </div>
+            <div class="form-control d-flex justify-content-start">{{ object.dish_type.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col p-4">
+      <div class="row">
+        <div class="col me-2">
+          <div class="card">
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons-readonly.html" with model=cooks.model query_for=cooks field="username" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card">
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons-readonly.html" with model=ingredients.model query_for=ingredients field="name" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

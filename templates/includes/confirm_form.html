@@ -1,0 +1,32 @@
+<div class="modal fade" id="confirmForm" tabindex="-1" aria-labelledby="confirmFormLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="{% url "delete_item" %}" class="modal-content">
+      {% csrf_token %}
+      <input type="hidden" name="item_id" id="item_id">
+      <input type="hidden" name="class_name" id="class_name">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmFormLabel">Do you really want to delete this item?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Yes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+  // Get all delete buttons
+  const deleteButtons = document.querySelectorAll('.btn-danger[data-bs-toggle="modal"]');
+
+  // Add event listener to each delete button
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const itemId = this.getAttribute('data-item-id');
+      const className = this.getAttribute('data-item-class');
+
+      document.getElementById('item_id').value = itemId;
+      document.getElementById('class_name').value = className;
+    });
+  });
+</script>

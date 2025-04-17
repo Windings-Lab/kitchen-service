@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header %}
+  {% with object|yesno:"Update,Create" as action %}
+    <h1 class="display-4">{{ action|stringformat:"s a dish" }}</h1>
+  {% endwith %}
+{% endblock %}
+{% block main %}
+  <form action="" method="post" enctype="multipart/form-data" class="text-start" novalidate>
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-3">
+        {% include "includes/cards/image_name_input.html" %}
+      </div>
+      <div class="col-9 d-flex flex-column">
+        <div class="col d-flex flex-column mb-3">
+          <div class="form-floating d-flex flex-grow-1">
+            <textarea class="form-control h-100"
+                      id="description"
+                      name="description" placeholder="Description">{{ object.description }}</textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-3">
+            <div class="form-floating">
+              <input type="text"
+                     class="form-control {% include "includes/form_validate.html" with validator=form.price.errors %}"
+                     id="price" name="price" placeholder="Price..." required value="{{ object.price }}">
+              <label for="price">Price...</label>
+            </div>
+            <div class="invalid-feedback">
+              {% for error in form.price.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          </div>
+          <div class="col d-flex align-items-center">
+            <label for="dish_type" class="visually-hidden"></label>
+            <select class="form-select {% include "includes/form_validate.html" with validator=form.dish_type.errors %}"
+                    id="dish_type" name="dish_type" required>
+              <option selected disabled value="">Choose dish type</option>
+              {% for item in dishtypes %}
+                <option value="{{ item.id }}" {% if object.dish_type == item %} selected {% endif %}>{{ item }}</option>
+              {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+              {% for error in form.dish_type.errors %}
+                {{ error }}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col p-4">
+        <div class="row">
+          <div class="col me-2">
+            <div class="card paginator">
+              <div class="card-header">
+                Cooks
+              </div>
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons.html" with query_for=form.fields.cooks.queryset field="username" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card paginator">
+              <div class="card-header">
+                Ingredients
+              </div>
+              <div class="card-body">
+                {% include "includes/multiple-check-buttons.html" with query_for=form.fields.ingredients.queryset field="name" %}
+              </div>
+              <div class="card-footer">
+                {% include "includes/pagination_client.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary col">
+  </form>
+{% endblock %}

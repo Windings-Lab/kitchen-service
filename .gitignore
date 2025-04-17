@@ -1,4 +1,4 @@
-# Generated files
+### IDE
 .idea/
 
 ### Django template
@@ -9,4 +9,11 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+
+### Django
+staticfiles
 media
+
+### Custom
+assets
+.env

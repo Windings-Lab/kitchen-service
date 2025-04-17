@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block header %}
+  {% with object|yesno:"Update ,Create " as action %}
+  {% with view.model|get_class_name as class_name %}
+    <h1 class="display-4">{{ action|vowel_a_an:class_name|add:" "|add:class_name }}</h1>
+  {% endwith %}
+  {% endwith %}
+{% endblock %}
+{% block main %}
+  <div class="d-flex justify-content-center">
+    <form action="" method="post" enctype="multipart/form-data" class="w-25 h-25" novalidate>
+      {% csrf_token %}
+      <div>
+        {% include "includes/cards/image_name_input.html" %}
+        <input type="submit" value="Submit" class="btn btn-primary rounded-0 rounded-bottom w-100">
+      </div>
+    </form>
+  </div>
+{% endblock %}

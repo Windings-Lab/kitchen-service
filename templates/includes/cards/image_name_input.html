@@ -1,0 +1,45 @@
+<div class="card rounded-0 rounded-top">
+  <div class="card-header p-0">
+    <label for="id_image" class="btn btn-secondary w-100 rounded-0 rounded-top">Set image</label>
+  </div>
+  <input type="file" class="form-control visually-hidden" id="id_image" accept="image/*" name="image">
+
+  <label for="id_image">
+    <div class="ratio ratio-1x1">
+      {% include "includes/image_source.html" with image=form.instance.image %}
+    </div>
+  </label>
+
+  <div class="card-body">
+    <div class="form-floating">
+      <input type="text"
+             class="form-control {% include "includes/form_validate.html" with validator=form.name.errors %}"
+             id="id_name"
+             name="name"
+             placeholder="Name..."
+             value="{{ object.name }}"
+             required>
+      <label for="id_name">Name...</label>
+    </div>
+    <div class="invalid-feedback">
+      {% for error in form.name.errors %}
+        {{ error }}
+      {% endfor %}
+    </div>
+
+  </div>
+</div>
+<script>
+  // Get the file input and image preview elements
+  const input = document.getElementById('id_image');
+  const preview = document.getElementById('image-preview');
+
+  // Event listener to handle file input changes
+  input.addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+      // Create a URL for the selected file and set it as the preview image source
+      preview.src = URL.createObjectURL(file);
+    }
+  });
+</script>

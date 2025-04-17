@@ -1,0 +1,13 @@
+{% load custom_tags %}
+
+<fieldset class="h-100">
+  <div class="row g-1 object-list">
+  {% for item in query_for %}
+    <div class="col-12">
+      <button type="button" class="btn btn-primary w-100" disabled>
+        <span class="text-center">{{ item|get_attribute:field }}</span>
+      </button>
+    </div>
+  {% endfor %}
+  </div>
+</fieldset>

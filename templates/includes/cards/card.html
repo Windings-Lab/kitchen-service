@@ -1,0 +1,43 @@
+{% load custom_tags %}
+
+<div class="card text-center">
+  <div class="card-body">
+    <div class="ratio ratio-1x1 rounded rounded-top border-bottom">
+      <a class="d-flex align-items-center ratio ratio-1x1" href="{{ item.get_detail_url }}">
+        <img id="image-preview" {% if item.image %} src="{{ item.image.url }}" {% endif %} class="card-img-top rounded-1">
+      </a>
+      {% if user.is_authenticated %}
+      <span class="container position-absolute top-0 p-0" style="height: 2.6rem">
+        <div class="row d-flex justify-content-between m-0 h-100">
+          <div class="col-2 p-0 h-100" style="width: 2.6rem">
+            <a href="{{ item.get_update_url }}"
+               class="btn btn-success rounded-0 d-flex align-items-center justify-content-center border-0 p-0 w-100 h-100"
+               style="background-color: #0c7d3e;
+                      border-bottom-right-radius: var(--bs-border-radius) !important;
+                      border-top-left-radius: 0.25rem !important;">
+              ✏️
+            </a>
+          </div>
+          <div class="col-2 p-0 h-100" style="width: 2.6rem">
+            <button
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#confirmForm"
+              data-item-id="{{ item.id }}"
+              data-item-class="{{ item.class_name }}"
+              class="btn btn-danger rounded-0 d-flex align-items-center justify-content-center border-0 p-0 w-100 h-100"
+              style="background-color: #bf0000;
+                      border-bottom-left-radius: var(--bs-border-radius) !important;
+                      border-top-right-radius: 0.25rem !important;">
+              X
+            </button>
+          </div>
+        </div>
+      </span>
+      {% endif %}
+    </div>
+    <a href="{{ item.get_detail_url }}">
+      <h3 class="card-title m-0 mt-2">{{ item.name }}</h3>
+    </a>
+  </div>
+</div>
